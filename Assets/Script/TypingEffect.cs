@@ -27,7 +27,7 @@ public class TypingEffect : MonoBehaviour
                 {
                     if (inputChar == originalText[charIndex]) // 입력 문자가 올바른 경우
                     {
-                        displayedText += string.Format("<color=green>{0}</color>", inputChar); // 색상 적용
+                        displayedText += string.Format("<color=red>{0}</color>", inputChar); // 색상 적용
                         charIndex++; // 다음 문자로 이동
                     }
                     // 입력 문자가 원본 텍스트와 일치하지 않는 경우, 추가 입력을 받지 않음
