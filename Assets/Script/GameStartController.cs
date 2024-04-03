@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameStartController : MonoBehaviour
 {
     public TextMeshProUGUI gameTextTMP; // UI TextMeshPro 컴포넌트
+    public float timeLimit = 15f;
+    private bool onlyOnce = false;
     private bool isGameStarted = false; // 게임이 시작되었는지 확인하는 플래그
     private IEnumerator gameTimerCoroutine; // 게임 타이머 코루틴 참조
 
@@ -15,8 +17,9 @@ public class GameStartController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isGameStarted)
+        if (Input.GetKeyDown(KeyCode.Space) && !isGameStarted && !onlyOnce)
         {
+            onlyOnce = true;
             StartGame();
         }
     }
@@ -27,14 +30,14 @@ public class GameStartController : MonoBehaviour
         gameTextTMP.text = ""; // 게임 시작 시 텍스트 초기화
 
         // 게임 타이머 코루틴 시작
-        gameTimerCoroutine = GameTimerCoroutine(15); // 15초 후 게임 리셋
+        gameTimerCoroutine = GameTimerCoroutine(timeLimit); // 15초 후 게임 리셋
         StartCoroutine(gameTimerCoroutine);
     }
 
     IEnumerator GameTimerCoroutine(float time)
     {
         yield return new WaitForSeconds(time);
-        ResetGame(); // 15초가 지난 후 게임 초기화
+        ResetGame(); // 제한 지난 후 게임 초기화
     }
 
     void ResetGame()
@@ -53,6 +56,20 @@ public class GameStartController : MonoBehaviour
         if (isGameStarted)
         {
             ResetGame(); // 텍스트 입력 완료 시 게임 초기화
+        }
+    }
+
+    public bool isPlaying()
+    {
+        return isGameStarted;
+    }
+
+    public void setPlaying()
+    {
+        isGameStarted = false;
+        if (gameTimerCoroutine != null)
+        {
+            StopCoroutine(gameTimerCoroutine); // 타이머 코루틴 정지
         }
     }
 }

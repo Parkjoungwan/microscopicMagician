@@ -8,6 +8,8 @@ public class TypingEffect : MonoBehaviour
     private string originalText; // 현재 페이지의 원본 텍스트
     private string displayedText = ""; // 현재 페이지에서 화면에 표시될 텍스트
     private int charIndex = 0; // 현재 페이지에서 처리 중인 문자의 인덱스
+    private bool firstPageClear = false;
+    public GameStartController isPlaying;
 
     void Start()
     {
@@ -42,14 +44,23 @@ public class TypingEffect : MonoBehaviour
             UpdateTextComponent();
 
             // 현재 페이지의 모든 텍스트 입력 완료 확인
-            if (charIndex >= originalText.Length && currentPageIndex < textComponents.Length - 1)
+            if (charIndex >= originalText.Length)
             {
-                // 다음 페이지로 전환
-                currentPageIndex++;
-                originalText = textComponents[currentPageIndex].text; // 다음 페이지의 원본 텍스트 설정
-                displayedText = ""; // 표시될 텍스트 초기화
-                charIndex = 0; // 인덱스 초기화
-                UpdateTextComponent();
+                if (currentPageIndex < textComponents.Length - 1)
+                {
+                    // 다음 페이지로 전환
+                    currentPageIndex++;
+                    originalText = textComponents[currentPageIndex].text; // 다음 페이지의 원본 텍스트 설정
+                    displayedText = ""; // 표시될 텍스트 초기화
+                    charIndex = 0; // 인덱스 초기화
+                    if (!firstPageClear)
+                        firstPageClear = true;
+                    UpdateTextComponent();
+                }
+                else
+                {
+                    isPlaying.setPlaying();
+                }
             }
         }
     }
@@ -58,6 +69,10 @@ public class TypingEffect : MonoBehaviour
     {
         // 남은 텍스트와 함께 화면에 표시될 텍스트 업데이트
         textComponents[currentPageIndex].text = displayedText + originalText.Substring(charIndex);
+    }
+    public bool getFirstPageClear()
+    {
+        return firstPageClear;
     }
 }
 

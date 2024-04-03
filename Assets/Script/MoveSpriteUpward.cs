@@ -6,20 +6,34 @@ public class MoveSpriteUpward : MonoBehaviour
     public float moveSpeed = 0.1f; // 이동 속도
     private float currentVelocity; // 현재 속도 (SmoothDamp 사용)
     private Vector3 targetPosition; // 목표 위치
+    private Vector3 originalPosition; // 원래 위치를 저장
+    public GameStartController isPlaying; // 게임 시작 감시
     private bool startMoving = false; // 움직임 시작 조건
 
     void Start()
     {
-        // 초기 목표 위치 설정 (현재 위치에서 targetHeight만큼 위)
+        // 초기 위치와 목표 위치 설정
+        originalPosition = transform.position;
         targetPosition = new Vector3(transform.position.x, transform.position.y + targetHeight, transform.position.z);
     }
 
     void Update()
     {
         // 특정 조건 체크 (예: 스페이스바 누름)
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (!startMoving)
         {
-            startMoving = true;
+            startMoving = true; // 움직임 시작
+
+            if (!isPlaying.isPlaying())
+            {
+                // 내려갈 때 목표 위치를 원래 위치로 설정
+                targetPosition = originalPosition;
+            }
+            else
+            {
+                // 올라갈 때 목표 위치를 설정
+                targetPosition = new Vector3(originalPosition.x, originalPosition.y + targetHeight, originalPosition.z);
+            }
         }
 
         // 움직임 시작

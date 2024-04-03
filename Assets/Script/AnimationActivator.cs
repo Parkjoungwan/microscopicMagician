@@ -3,13 +3,24 @@ using UnityEngine;
 public class AnimationActivator : MonoBehaviour
 {
     public GameObject animationObject; // 애니메이션을 포함하는 객체에 대한 참조
+    public TypingEffect firstPageObject; // 읽어야할 지문 객체
+    public GameStartController isPlaying;
+    public bool toggle = false;
 
+    void Start()
+    {
+        animationObject.SetActive(!animationObject.activeSelf);
+    }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) // 특정 조건, 예를 들어 스페이스바를 눌렀을 때
+        if (firstPageObject.getFirstPageClear() && !toggle)
         {
-            // GameObject의 활성화 상태를 토글합니다.
+            toggle = true;
             animationObject.SetActive(!animationObject.activeSelf);
+        }
+        if (!isPlaying.isPlaying())
+        {
+            animationObject.SetActive(false);
         }
     }
 }
