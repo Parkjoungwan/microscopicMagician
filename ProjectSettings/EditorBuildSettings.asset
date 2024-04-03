@@ -8,4 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Playing.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Epilogue1.unity
+    guid: 9a14f8776cee44c1abbe7869f01a0fb6
+  - enabled: 1
+    path: Assets/Scenes/Epilogue2.unity
+    guid: 9d114fc23434a478e833de76e6a4633d
+  - enabled: 1
+    path: Assets/Scenes/Epilogue3.unity
+    guid: ac4ee0ac0f63d4fbab58d7eba8e008c3
+  - enabled: 1
+    path: Assets/Scenes/EndingCradit.unity
+    guid: f5c659ac1420f4454b73c9d0c3c34fd7
   m_configObjects: {}
