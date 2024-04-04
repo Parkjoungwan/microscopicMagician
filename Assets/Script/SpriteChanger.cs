@@ -8,7 +8,7 @@ public class SpriteChanger : MonoBehaviour
 
     void Update()
     {
-        if (playController.isPlaying()) // 스페이스바를 눌렀을 때
+        if (playController.isPlaying())
         {
             GetComponent<SpriteRenderer>().sprite = SpriteGray; // Sprite 교체
         }

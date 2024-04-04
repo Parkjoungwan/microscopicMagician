@@ -54,12 +54,16 @@ public class TypingEffect : MonoBehaviour
                     displayedText = ""; // 표시될 텍스트 초기화
                     charIndex = 0; // 인덱스 초기화
                     if (!firstPageClear)
+                    {
                         firstPageClear = true;
+                        GameManager.playerScore = 1;
+                    }
                     UpdateTextComponent();
                 }
                 else
                 {
                     isPlaying.setPlaying();
+                    GameManager.playerScore = 2;
                 }
             }
         }

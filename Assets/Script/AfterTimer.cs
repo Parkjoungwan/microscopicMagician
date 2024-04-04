@@ -12,12 +12,10 @@ public class AfterTimer : MonoBehaviour
 
     void Update()
     {
-        // 게임이 시작되고, 아직 타이머가 시작되지 않았다면
         if (!started && isPlaying.isPlaying())
-        {
             started = true; // 타이머 시작을 표시
+        if (started && !isPlaying.isPlaying())
             StartCoroutine(SetGuardTimingTrueAfterDelay(waitTime)); // guardTiming을 true로 설정하기 위해 첫 번째 코루틴 시작
-        }
     }
 
     IEnumerator SetGuardTimingTrueAfterDelay(float delay)
@@ -35,6 +33,11 @@ public class AfterTimer : MonoBehaviour
 
         StartCoroutine(ChangeSceneAfterDelay(waitTime)); // 마지막 지정된 시간 후 Scene 전환
     }
+    IEnumerator ChangeSceneAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay); // 추가 대기
+        SceneManager.LoadScene("EndingCradit"); // 여기에 원하는 Scene 이름 입력
+    } 
 
     public bool getGuardTiming () {
         return guardTiming;
@@ -42,9 +45,4 @@ public class AfterTimer : MonoBehaviour
     public bool getAlloutTiming () {
         return allOutTiming;
     }
-    IEnumerator ChangeSceneAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay); // 추가 대기
-        SceneManager.LoadScene("EndingCradit"); // 여기에 원하는 Scene 이름 입력
-    } 
 }
