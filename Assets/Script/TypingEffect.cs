@@ -11,8 +11,23 @@ public class TypingEffect : MonoBehaviour
     private bool firstPageClear = false;
     public GameStartController isPlaying;
 
+    // 각 페이지의 가능한 텍스트 버전을 저장하는 배열
+    private string[,] pageVersions = new string[,]
+    {
+        { "From the shadows, I summon the microscopic agents of darkness. Cursed souls, weave through my enemies, spreading decay and despair.", "Transform their essence into my power, and with each beat of their weakening hearts, strengthen mine." },
+        { "In the unseen depths, I summon microscopic harbingers of ruin. Tiny architects of decay, invade my foes, sowing seeds of despair within.", "As their strength wanes, fueling the embers of my dark power." },
+        { "Beneath the veil of reality, I invoke the microscopic sentinels of shadow. Minute warriors of blight, permeate the essence of those", "who oppose me, embedding seeds of torment. Their diminishing vigor feeds the flames of my ancient power." }
+        // 여기에 더 많은 버전 추가 가능
+    };
+
     void Start()
     {
+        // 게임 시작 시 랜덤한 버전 선택
+        int versionIndex = Random.Range(0, pageVersions.GetLength(0));
+        // 선택된 버전의 pageOne & pageTwo 텍스트 설정
+        textComponents[0].text = pageVersions[versionIndex, 0];
+        textComponents[1].text = pageVersions[versionIndex, 1];
+
         // 첫 페이지의 원본 텍스트를 설정
         originalText = textComponents[currentPageIndex].text;
         UpdateTextComponent();
@@ -62,8 +77,8 @@ public class TypingEffect : MonoBehaviour
                 }
                 else
                 {
-                    isPlaying.setPlaying();
                     GameManager.playerScore = 2;
+                    isPlaying.setPlaying();
                 }
             }
         }
@@ -79,4 +94,3 @@ public class TypingEffect : MonoBehaviour
         return firstPageClear;
     }
 }
-

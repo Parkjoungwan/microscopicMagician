@@ -4,7 +4,7 @@ using TMPro;
 public class TimerController : MonoBehaviour
 {
     public TextMeshProUGUI timerText;
-    private float timeRemaining = 30f;
+    private float timeRemaining = 35f;
     private bool timerIsRunning = false;
     public GameStartController isPlaying;
 
@@ -50,7 +50,7 @@ public class TimerController : MonoBehaviour
     public void StopTimer()
     {
         timerIsRunning = false;
-        timeRemaining = 30f; // 타이머 리셋 (필요에 따라 조정)
+        timeRemaining = 35f; // 타이머 리셋 (필요에 따라 조정)
         timerText.gameObject.SetActive(false); // 타이머 숨기기 (필요에 따라)
         // 필요한 추가 종료 로직을 여기에 구현
     }

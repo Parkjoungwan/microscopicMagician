@@ -30,7 +30,7 @@ public class GameStartController : MonoBehaviour
         gameTextTMP.text = ""; // 게임 시작 시 텍스트 초기화
 
         // 게임 타이머 코루틴 시작
-        gameTimerCoroutine = GameTimerCoroutine(timeLimit); // 15초 후 게임 리셋
+        gameTimerCoroutine = GameTimerCoroutine(timeLimit);
         StartCoroutine(gameTimerCoroutine);
     }
 
@@ -51,8 +51,6 @@ public class GameStartController : MonoBehaviour
             gameTextTMP.text = "<color=yellow>It looks as though nothing happened.</color>"; 
         else if (GameManager.playerScore == 1)
             gameTextTMP.text = "<color=yellow>It seems as though something did occur.</color>";
-        else
-            gameTextTMP.text = "<color=yellow>Something appears blurry.</color>"; 
     }
 
     // 텍스트 입력이 완료되었을 때 호출할 메서드
@@ -74,6 +72,7 @@ public class GameStartController : MonoBehaviour
         isGameStarted = false;
         if (gameTimerCoroutine != null)
         {
+            gameTextTMP.text = "<color=yellow>Something appears blurry.</color>";  
             StopCoroutine(gameTimerCoroutine); // 타이머 코루틴 정지
         }
     }

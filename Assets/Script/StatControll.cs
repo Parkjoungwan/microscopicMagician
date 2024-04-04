@@ -18,9 +18,13 @@ public class StatControll : MonoBehaviour
             started = true;
             statText.text = "<color=white>Type!!</color>";
         }
-        if (started && !isPlaying.isPlaying()) 
+        if (started && !isPlaying.isPlaying() && GameManager.playerScore != 2) 
         {
             statText.text = "<color=yellow>???????</color>";
-        }       
+        }
+        if (started && !isPlaying.isPlaying() && GameManager.playerScore == 2) 
+        {
+            statText.text = "<color=yellow>!!!!!!!</color>";
+        }
     }
 }
